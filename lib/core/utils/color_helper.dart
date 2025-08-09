@@ -8,9 +8,6 @@ class ColorHelper {
 
   const ColorHelper._();
 
-  static const int _fullAlpha = 0xFF000000;
-  static const int _maxColorValue = 0x1000000;
-
   /// Generates a random color using a single 24-bit integer for RGB,
   /// combined with a fixed full alpha channel (0xFF).
   ///
@@ -19,8 +16,9 @@ class ColorHelper {
   /// by bitwise operations.
   ///
   /// It can generate **all 16,777,216** possible RGB colors with full opacity.
-  static Color generateRandomColor() =>
-      Color(_fullAlpha | _random.nextInt(_maxColorValue));
+  static Color generateRandomColor() => Color(
+    AppConstants.fullAlphaHex | _random.nextInt(AppConstants.maxColorValueHex),
+  );
 
   /// Generates a random RGB color by generating each color component
   /// (red, green, blue) separately and then combining them with
