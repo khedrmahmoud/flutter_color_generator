@@ -3,9 +3,11 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('ColorHelper', () {
+    const int minColorValue = 0x00000000;
+    const int maxColorValue = 0xFFFFFFFF;
     test('should generate a valid color hex code', () {
       final color = ColorHelper.generateRandomColor();
-      expect(color.toARGB32(), inInclusiveRange(0x00000000, 0xFFFFFFFF));
+      expect(color.toARGB32(), inInclusiveRange(minColorValue, maxColorValue));
     });
 
     test('should convert Color to HEX string correctly', () {

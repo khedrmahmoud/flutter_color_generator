@@ -23,7 +23,7 @@ class _MainPageState extends State<MainPage>
   RippleData? _currentRipple;
 
   late AnimationController _rippleController;
-  late Animation<double> _radiusAnimation;
+  Animation<double> _radiusAnimation = const AlwaysStoppedAnimation(0.0);
 
   @override
   void initState() {
@@ -53,13 +53,17 @@ class _MainPageState extends State<MainPage>
   }
 
   void _handleAnimationStatus(AnimationStatus status) {
-    if (status != AnimationStatus.completed || _currentRipple == null) return;
+    if (status != AnimationStatus.completed) return;
+    final ripple = _currentRipple;
+    if (ripple == null) return;
+
     setState(() {
-      _backgroundColor = _currentRipple!.color;
-      _appBarColor = _colorService.shiftAppBarColor(_currentRipple!.color);
-      _colorService.addToRecent(_currentRipple!.color);
+      _backgroundColor = ripple.color;
+      _appBarColor = _colorService.shiftAppBarColor(ripple.color);
+      _colorService.addToRecent(ripple.color);
       _currentRipple = null;
     });
+
     _rippleController.reset();
   }
 
@@ -86,6 +90,7 @@ class _MainPageState extends State<MainPage>
     return LayoutBuilder(
       builder: (_, constraints) {
         final screenSize = Size(constraints.maxWidth, constraints.maxHeight);
+        final ripple = _currentRipple;
 
         return Scaffold(
           appBar: MainAppBar(
@@ -104,9 +109,9 @@ class _MainPageState extends State<MainPage>
                   key: const Key('color_display_container'),
                   color: _backgroundColor,
                 ),
-                if (_currentRipple != null)
+                if (ripple != null)
                   RippleAnimationOverlay(
-                    rippleData: _currentRipple!,
+                    rippleData: ripple,
                     radiusAnimation: _radiusAnimation,
                   ),
                 ColorDisplayContent(backgroundColor: _backgroundColor),

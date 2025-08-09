@@ -14,7 +14,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-  late Animation<double> _fadeAnimation;
+  Animation<double> _fadeAnimation = const AlwaysStoppedAnimation(0.0);
   Color _backgroundColor = Colors.white;
 
   @override
