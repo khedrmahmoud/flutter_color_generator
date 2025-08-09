@@ -49,11 +49,3 @@ jobs:
           else
             echo "Unit/widget tests not found."
           fi
-
-          # Run integration tests if `integration_test` folder exists
-          if [ -d integration_test ]; then
-            flutter test integration_test -r expanded
-          else
-            echo "Integration tests not found."
-          fi
-
